@@ -1,35 +1,27 @@
-import os
-from flask import Flask, jsonify, request
-from math import sqrt
-
-app = Flask(__name__)
-
 @app.route('/')
 def nao_entre_em_panico():
+    primos = []
+    for div in range(1,550+1):
+        cont = 0
 
-    limite = 100
+        for x in range(1,div+1):
+            if div % x == 0:
+                cont +=1
 
-    c = 1
-    p = 1
-    numero = 3
+        if cont == 2:
+            primos.append(x)
 
-    primos = "2,"
+    primos1 = ''
+    a = 0
+    b = 10
+    for j in range(1,10+1):
+        for i in range(a,b):
+            primos1 += str(primos[i]) + ',' 
+        primos1 += ' --> ' + str(b) + '<br>'
+        a += 10
+        b += 10
+    return primos1
 
-    while p < limite:
-        ehprimo = 1
-        for i in range(2, numero):
-            if numero % i == 0:
-                ehprimo = 0
-                break
-        if (ehprimo):
-            primos = primos + str(numero) + ","
-            p += 1
-            if(p % 10 == 0):
-                primos = primos + "<br>"
-        numero+=1
-
-    return primos
-
-if __name__ == "__main__":
+if name == "main":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
